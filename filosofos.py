@@ -17,14 +17,14 @@ class Filosofo(threading.Thread):
             time.sleep(random.uniform(0.5, 1.5))
             
             # Intentar comer
-            self.semaforo_global.acquire()  # Evita que más de 4 filósofos coman
+            self.semaforo_global.acquire()  # Evita que mas de 4 filosofos coman
             
             self.tenedor_izq.acquire()
             self.tenedor_der.acquire()
             
             # Comer
             self.contador_comidas[self.id] += 1
-            print(f"Filósofo {self.id + 1} ha comido {self.contador_comidas[self.id]} veces")
+            print(f"Filosofo {self.id + 1} ha comido {self.contador_comidas[self.id]} veces")
             time.sleep(random.uniform(0.5, 1.0))
             
             # Liberar tenedores
@@ -34,7 +34,7 @@ class Filosofo(threading.Thread):
 
 def main():
     tenedores = [threading.Semaphore(1) for _ in range(5)]
-    semaforo_global = threading.Semaphore(4)  # Solo 4 filósofos pueden comer a la vez
+    semaforo_global = threading.Semaphore(4)  # Solo 4 filosofos pueden comer a la vez
     contador_comidas = [0] * 5
     
     filosofos = [Filosofo(i, tenedores, semaforo_global, contador_comidas) for i in range(5)]
@@ -45,7 +45,7 @@ def main():
     for f in filosofos:
         f.join()
     
-    print("Todos los filósofos han comido al menos 6 veces")
+    print("Todos los filosofos han comido al menos 6 veces")
 
 if __name__ == "__main__":
     main()
